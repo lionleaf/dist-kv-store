@@ -3,3 +3,9 @@ mrtmp.*
 /mapreduce/x.txt
 /pbservice/x.txt
 /kvpaxos/x.txt
+*/run.err
+*/run.log
+9fans.net/*
+golang.org/*
+github.com/*
+gopkg.in/*
