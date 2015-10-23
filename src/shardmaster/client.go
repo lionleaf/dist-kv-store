@@ -67,6 +67,7 @@ func (ck *Clerk) Query(num int) Config {
 		}
 		time.Sleep(100 * time.Millisecond)
 	}
+	return Config{Num: -1}
 }
 
 func (ck *Clerk) Join(gid int64, servers []string) {

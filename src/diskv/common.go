@@ -15,29 +15,66 @@ const (
 	ErrWrongGroup = "ErrWrongGroup"
 )
 
+type OpType int
+
+const (
+	Get OpType = iota + 1
+	GetDatabase
+	Put
+	Append
+	NewConfig
+	ShardSent
+	ShardsReceived
+)
+
 type Err string
 
 type PutAppendArgs struct {
-	Key   string
-	Value string
-	Op    string // "Put" or "Append"
-	// You'll have to add definitions here.
-	// Field names must start with capital letters,
-	// otherwise RPC will break.
-
+	Key       string
+	Value     string
+	Op        OpType // "Put" or "Append"
+	Client    int
+	ClientSeq int
 }
 
 type PutAppendReply struct {
 	Err Err
 }
 
+type GetShardArgs struct {
+	ConfigNr int //The current config to make sure we respond in the right point in time
+	Shard    int
+}
+
+type GetShardReply struct {
+	Err        Err
+	Ops        []interface{}
+	ClientSeqs map[int]int
+}
+type GetDatabaseArgs struct {
+}
+
+type GetDatabaseReply struct {
+	Err    Err
+	DBblob string
+}
+
+type GotShardArgs struct {
+	ConfigNr int //The current config to make sure we respond in the right point in time
+	Shard    int
+}
+
+type GotShardReply struct {
+	Err Err
+}
+
 type GetArgs struct {
-	Key string
-	// You'll have to add definitions here.
+	Key       string
+	Client    int
+	ClientSeq int
 }
 
 type GetReply struct {
 	Err   Err
 	Value string
 }
-
